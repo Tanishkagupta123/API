@@ -1,6 +1,8 @@
-def employee_serializer(emp):
-    return {
-        'id': emp.id,
-        'name': emp.name,
-        'age': emp.age
-    }
+from rest_framework import serializers 
+from .models import Player_Serializer
+
+
+class Player(serializers.ModelSerializer):
+    class Meta:
+        model=Player_Serializer
+        fields='_all_'
