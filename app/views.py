@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Player_Serializer as p
+from .models import Employee
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -10,19 +11,8 @@ def landing(req):
 def register(req):
     return render(req,'register.html')
 
-def list(req):
-    if req.method =="POST":
-        form =p()
-        return render (req,'register.html')
-    else :
-        return render(req,'landing.html')
-    
+def emp_list(req):
+    emp=Employee.objects.all()
+    print(emp.values())
 
-def details(req):
-    if req.method=="POST":
-        form=p()
-        data=p.objects.create()
-        return render(req,'register.html')
-    else:
-        return render(req,'landing.html')
-    
+    print(emp.values_list())

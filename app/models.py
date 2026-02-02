@@ -11,11 +11,10 @@ from django.core.exceptions import ValidationError
 
 
 # Create your models here.
-class Player_Serializer(models.Model):
+class Employee(models.Model):
     name=models.CharField(max_length=20)
     age=models.IntegerField(validators=[MinValueValidator(18)])
-    country=models.CharField(max_length=10)
-    jersy_number=models.IntegerField(max_length=3)
+    city=models.CharField(max_length=10)
 
     def _str_(self):
-        return (self.name,self.country)
+        return (self.name,self.city)
