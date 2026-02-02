@@ -1,8 +1,8 @@
 # from rest_framework import serializers 
-# from .models import Player_Serializer
+# from .models import Employee
 
 
-# class Player(serializers.ModelSerializer):
+# class EmpSerializer(serializers.ModelSerializer):
 #     class Meta:
-#         model=Player_Serializer
+#         model=Employee
 #         fields='_all_'

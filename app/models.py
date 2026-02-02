@@ -16,5 +16,6 @@ class Employee(models.Model):
     age=models.IntegerField(validators=[MinValueValidator(18)])
     city=models.CharField(max_length=10)
 
-    def _str_(self):
-        return (self.name,self.city)
+    def __str__(self):
+        return self.name
+    

@@ -23,6 +23,6 @@ urlpatterns = [
     path('',landing,name='landing'),
     path('register/',register,name='register'),
     path('list/',emp_list),
-    # path('details/',details),
+    path('detail/<int:pk>',details),
 
 ]
