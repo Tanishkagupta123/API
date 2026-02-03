@@ -3,6 +3,7 @@ from .models import Employee
 from django.http import HttpResponse,JsonResponse
 import json
 from django.forms.models import model_to_dict
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -13,14 +14,29 @@ def landing(req):
 def register(req):
     return render(req,'register.html')
 
+# (not use serializer , complex data convert to python data) # use core logic
+
+@csrf_exempt
 def emp_list(req):
-    emp=Employee.objects.all()
-    print(emp.values())
-    p_emp_data=list(emp.values())
-    print(p_emp_data)
-    j_data=json.dumps(p_emp_data)
-    print(j_data)
-    return HttpResponse(j_data,content_type='application/json')
+    if req.method=="POST":
+        j_data=req.body
+        print(j_data)
+        print(type(j_data))
+        p_data=json.loads(j_data)
+        print(p_data)
+        print(type(p_data))
+        
+
+
+
+
+    # emp=Employee.objects.all()
+    # print(emp.values())
+    # p_emp_data=list(emp.values())
+    # print(p_emp_data)
+    # j_data=json.dumps(p_emp_data)
+    # print(j_data)
+    # return HttpResponse(j_data,content_type='application/json')
 
     # return JsonResponse(p_emp_data,safe=False)
 
@@ -33,6 +49,7 @@ def details(req,pk):
     # print(j_data)
     # return HttpResponse(j_data,content_type='application/json')
     return JsonResponse(p_data,safe=False)
+
 
 
 
