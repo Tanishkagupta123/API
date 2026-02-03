@@ -25,6 +25,19 @@ def emp_list(req):
         p_data=json.loads(j_data)
         print(p_data)
         print(type(p_data))
+        n=p_data.get('name')
+        a=p_data.get('age')
+        c=p_data.get('city')
+        if 'name' in p_data and 'age' in p_data and 'city' in p_data:
+            Employee.objects.create(name=n,age=a,city=c)
+            d={
+                'msg':'object created succesfully'
+            }
+            j_data=json.dumps(d)
+            return HttpResponse(j_data,content_type='application/json')
+
+
+
         
 
 
