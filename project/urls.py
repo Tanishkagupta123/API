@@ -24,6 +24,6 @@ urlpatterns = [
     path('register/',register,name='register'),
     path('list/',emp_list),
     path('detail/<int:pk>',details),
-    path('employee/',employee)
+    path('employee/',employee),
 
 ]
