@@ -116,3 +116,69 @@ def details(req,pk):
     # print(j_data)
     # return HttpResponse(j_data,content_type='application/json')
     return JsonResponse(p_data,safe=False)
+
+
+
+@csrf_exempt
+def employee(req):
+    j_data=req.body
+    p_data=json.loads(j_data)
+    if 'id' in p_data:
+         if req.method=='POST':
+                pass
+         if req.method =="PUT":
+          j_data = req.body
+          print(j_data)
+         print(type(j_data))
+         p_data= json.loads(j_data)
+         print(p_data)
+         print(type(p_data))
+         if 'name' in p_data and 'age' in p_data and 'city' in p_data:
+            old_data = Employee.objects.get(id=p_data.get('id'))
+            old_data.name = p_data.get('name')
+            old_data.age = p_data.get('age')
+            old_data.city = p_data.get('city')
+            old_data.save()
+            d = {
+                'msg': 'Object updated successfully'
+            }
+            j_data = json.dumps(d)
+            return HttpResponse(j_data,content_type='application/json')
+         else:
+            d = {
+                'msg': 'All fields are required'
+            }
+            j_data = json.dumps(d)
+            return HttpResponse(j_data,content_type='application/json')
+    
+    elif req.method =="PATCH":
+        j_data = req.body
+        print(j_data)
+        print(type(j_data))
+        p_data= json.loads(j_data)
+        print(p_data)
+        print(type(p_data))
+        old_data = Employee.objects.get(id=p_data.get('id'))
+        if 'name' in p_data:
+            old_data.name = p_data.get('name')
+        if 'age' in p_data:
+            old_data.age = p_data.get('age')
+        if 'city' in p_data:
+            old_data.city = p_data.get('city')
+        old_data.save()
+        d = {
+                'msg': 'Object partially updated successfully'
+            }
+        j_data = json.dumps(d)
+        return HttpResponse(j_data,content_type='application/json')
+                
+    elif req.method =="DELETE":
+        old_data = Employee.objects.get(id=p_data.get('id'))
+        old_data.delete()
+        d = {
+                'msg': 'Object Deleted successfully'
+            }
+        j_data = json.dumps(d)
+        return HttpResponse(j_data,content_type='application/json')
+    emp_data=Employee.objects.get(id=id)
+
