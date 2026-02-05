@@ -224,7 +224,31 @@ def employee(req):
     
 from .serializers import EmpSerializer  
 from rest_framework.renderers import JSONRenderer
+import io
+from rest_framework.parsers import JSONParser
+
+@csrf_exempt
 def seralizeall(req):
+    if req.method=="POST":
+        data=req.body  
+        stream = io.BytesIO(data)
+        p_data = JSONParser().parse(stream)
+        serializer = EmpSerializer(data=p_data)
+        if serializer.is_valid():
+            print(serializer.validated_data)
+            serializer.save()  
+            d = {
+                'msg': 'Object created successfully'
+            }
+            j_data = JSONRenderer().render(d)
+            return HttpResponse(j_data,content_type='application/json')
+    
+        else:
+          j_data = JSONRenderer().render(serializer.errors)
+          return HttpResponse(j_data,content_type='application/json')
+    
+
+
     data = Employee.objects.all()
     serializer =  EmpSerializer(data,many=True)
     print(serializer)
