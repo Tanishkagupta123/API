@@ -229,10 +229,12 @@ def seralizeall(req):
     serializer =  EmpSerializer(data,many=True)
     print(serializer)
     print(serializer.data)
+
     # Old method----------------
     # j_data= json.dumps(serializer.data)
     #     # print(j_data)
     # return HttpResponse(j_data,content_type='application/json')
+
     # new ------------
     # json = JSONRenderer().render(serializer.data)
     # return HttpResponse(json,content_type='application/json')
