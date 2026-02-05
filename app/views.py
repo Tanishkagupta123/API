@@ -220,3 +220,28 @@ def employee(req):
         # print(j_data)
         return HttpResponse(j_data,content_type='application/json')
     
+    # Used to Serializer----------------------------
+    
+from .serializers import EmpSerializer  
+from rest_framework.renderers import JSONRenderer
+def seralizeall(req):
+    data = Employee.objects.all()
+    serializer =  EmpSerializer(data,many=True)
+    print(serializer)
+    print(serializer.data)
+    # Old method----------------
+    # j_data= json.dumps(serializer.data)
+    #     # print(j_data)
+    # return HttpResponse(j_data,content_type='application/json')
+    # new ------------
+    # json = JSONRenderer().render(serializer.data)
+    # return HttpResponse(json,content_type='application/json')
+    return JsonResponse(serializer.data,safe=False)
+
+def seralizeone(req,pk):
+    data = Employee.objects.get(id=pk)
+    serializer =  EmpSerializer(data)
+    # json = JSONRenderer().render(serializer.data)
+    # return HttpResponse(json,content_type='application/json')
+    return JsonResponse(serializer.data)
+

@@ -25,5 +25,8 @@ urlpatterns = [
     path('list/',emp_list),
     path('detail/<int:pk>',details),
     path('employee/',employee),
+    path('seralizeall/',seralizeall),
+    path('seralizeone/<int:pk>',seralizeone)
+
 
 ]
