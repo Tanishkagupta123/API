@@ -247,6 +247,7 @@ def seralizeall(req):
           j_data = JSONRenderer().render(serializer.errors)
           return HttpResponse(j_data,content_type='application/json')
     
+
     data = Employee.objects.all()
     serializer =  EmpSerializer(data,many=True)
     print(serializer)
