@@ -264,10 +264,46 @@ def seralizeall(req):
     # return HttpResponse(json,content_type='application/json')
     return JsonResponse(serializer.data,safe=False)
 
+@csrf_exempt
 def seralizeone(req,pk):
+    if req.method == 'PUT':
+        data = req.body
+        stream = io.BytesIO(data)
+        new_p_data = JSONParser().parse(stream)
+        old_emp = Employee.objects.get(id=pk)
+
+        serializer = EmpSerializer(old_emp, data=new_p_data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({'msg': 'Object updated successfully'})
+        else:
+            return JsonResponse(serializer.errors)
+    
+    if req.method == 'PATCH':
+        data = req.body
+        stream = io.BytesIO(data)
+        new_p_data = JSONParser().parse(stream)
+        old_emp = Employee.objects.get(id=pk)
+
+        serializer = EmpSerializer(old_emp, data=new_p_data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({'msg': 'Object updated successfully'})
+        else:
+            return JsonResponse(serializer.errors)
+    
+
+    if req.method == 'DELETE':
+        emp = Employee.objects.get(id=pk)
+        emp.delete()
+        return JsonResponse({'msg': 'Object deleted successfully'}) 
+
+
+
     data = Employee.objects.get(id=pk)
     serializer =  EmpSerializer(data)
     # json = JSONRenderer().render(serializer.data)
     # return HttpResponse(json,content_type='application/json')
     return JsonResponse(serializer.data)
+
 
