@@ -247,8 +247,6 @@ def seralizeall(req):
           j_data = JSONRenderer().render(serializer.errors)
           return HttpResponse(j_data,content_type='application/json')
     
-
-
     data = Employee.objects.all()
     serializer =  EmpSerializer(data,many=True)
     print(serializer)
@@ -292,13 +290,10 @@ def seralizeone(req,pk):
         else:
             return JsonResponse(serializer.errors)
     
-
     if req.method == 'DELETE':
         emp = Employee.objects.get(id=pk)
         emp.delete()
         return JsonResponse({'msg': 'Object deleted successfully'}) 
-
-
 
     data = Employee.objects.get(id=pk)
     serializer =  EmpSerializer(data)
