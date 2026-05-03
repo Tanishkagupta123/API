@@ -15,4 +15,3 @@ class EmpSerializer(serializers.Serializer):
         instance.save()
         return instance
     
-    
